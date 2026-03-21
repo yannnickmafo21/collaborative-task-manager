@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
-    <link rel="stylesheet" href="/resources/css/login.css">
+    @vite('resources/css/login.css')
 </head>
 <body>
     <div class="container">
         <div class="container_div div_image">
-            <h1>MyTask</h1>
-            <img src="/public/login_image.jpg" alt="" srcset="" class="image">
+            <h1>MyTasks</h1>
+            <img src={{asset("login_image.jpg")}} alt="" srcset="" class="image">
         </div>
         <div class="container_div div_form">
             <h2><u>login</u></h2>
@@ -20,7 +20,7 @@
 
                     <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password"><br>
 
-                    <a href="http://" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
+                    <a href="inscription" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
                 </div>
                 <div class="div_button">
                     <button type="reset" class="reset">
