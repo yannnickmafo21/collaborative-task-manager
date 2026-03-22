@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +16,9 @@
             <h2><u>login</u></h2>
             <form action="">
                 <div class="div_input">
-                    <label for="email">Email</label><input type="email" id="email" required placeholder="abcd@gmail.com">
+                    <label for="email">Email</label><input type="email" id="email" required placeholder="abcd@gmail.com" required>
 
-                    <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password"><br>
+                    <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password" required><br>
 
                     <a href="inscription" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
                 </div>
