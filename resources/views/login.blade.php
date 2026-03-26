@@ -1,3 +1,11 @@
+@if (session('message') == "success")
+    <p>{{ session('message') }}</p>
+@endif
+
+@if(session("error"))
+    <p>{{ session('error') }}</p>
+@endif
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,13 +22,14 @@
         </div>
         <div class="container_div div_form">
             <h2><u>login</u></h2>
-            <form action="">
+            <form action="/connexion" method="POST">
+                @csrf
                 <div class="div_input">
-                    <label for="email">Email</label><input type="email" id="email" required placeholder="abcd@gmail.com" required>
+                    <label for="email">Email</label><input type="email" id="email" required placeholder="abcd@gmail.com" name="email" value="{{ session('email') }}" required>
 
-                    <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password" required><br>
+                    <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password" name="password" value="{{ session('password') }}" required><br>
 
-                    <a href="inscription" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
+                    <a href="/create_account" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
                 </div>
                 <div class="div_button">
                     <button type="reset" class="reset">

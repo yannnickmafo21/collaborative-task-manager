@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incription</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite("/resources/css/inscription.css")
     @vite("/resources/js/inscription.js")
 </head>
@@ -11,7 +12,8 @@
     <h1>MyTasks</h1>
     <div class="container">
         <h2>inscription</h2>
-        <form action="">
+        <form action="/create_account" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="preview_profil">
                 <img src={{ asset("account_circle.png") }} alt="" srcset="" class="img_profil">
             </div>
@@ -21,6 +23,9 @@
                 
                 <label for="name" class="label-text">Name</label>
                 <input type="text" name="name" id="name" placeholder="your username" class="input-text" required>
+
+                <label for="surname" class="label-text">Surname</label>
+                <input type="text" name="surname" id="surname" placeholder="your surname" class="input-text" required>
                 
                 <label for="email" class="label-text">Email</label>
                 <input type="email" name="email" id="email" placeholder="abcd@gmail.com" class="input-text" required>
@@ -28,11 +33,11 @@
                 <label for="password" class="label-text">Password</label>
                 <input type="password" name="password" id="password" placeholder="your password" class="input-text" required>
                 
-                <a href="login">login</a>
+                <a href="/login">login</a>
             </div>
             <div class="div_button">
                 <button type="reset">reset</button>
-                <button type="button">submit</button>
+                <button type="submit">submit</button>
             </div>
 
         </form>
