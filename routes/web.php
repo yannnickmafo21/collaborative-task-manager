@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('inscription', function () {
-    return view('inscription')->name('inscription');
-});
+    return view('inscription');
+})->name('inscription');
 Route::get('login', function() {
     return view('login');
 })->name('login');
@@ -29,3 +30,11 @@ Route::get('dashboard', function() {
     return view('index');
 })->middleware('auth')->name('dashboard');
 
+Route::middleware(('auth'))->group((function () {
+    //route vers dashboard
+    Route::get('dashboard', function() {
+    return view('index');})->name('dashboard');
+
+    //route vers la création d'une tâche
+    Route::post('/create_task', [TaskController::class, "create"]);
+}));

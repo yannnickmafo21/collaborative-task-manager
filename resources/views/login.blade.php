@@ -29,7 +29,7 @@
 
                     <label for="pwrd">Password</label><input type="password" required id="pwrd" placeholder="Your password" name="password" value="{{ session('password') }}" required><br>
 
-                    <a href="/create_account" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
+                    <a href="/inscription" target="_blank" rel="noopener noreferrer">Inscript yourself</a>
                 </div>
                 <div class="div_button">
                     <button type="reset" class="reset">

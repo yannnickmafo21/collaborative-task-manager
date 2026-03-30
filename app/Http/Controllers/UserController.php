@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class UserController extends Controller
 
         // Upload vers Cloudinary
         //s'assurer d'avoir configuré les variables d'environnement CLOUDINARY_URL dans le fichier .env, d'avoir installé le package Cloudinary Laravel et d'avoir importé la façade Cloudinary en haut du fichier UserController.php, rendre public le provider de Cloudinary dans config/app.php, et d'avoir les bonnes permissions pour le dossier de stockage des images.
-        
+
         $uploadedFileUrl = Cloudinary::upload(
         $request->file('profil')->getRealPath(),
         ['folder' => 'profils']
@@ -50,7 +51,13 @@ class UserController extends Controller
         if($user && Hash::check($request->password, $user->password)){
             auth()->login($user);
 
-            return redirect('dashboard')->with(['name' => $user->name, 'profil' => $user->profil, 'message'=>'success']);
+            $users = User::select('name', 'profil', 'id')->get();
+
+            $tasks = $users->task;
+
+            session(["users" => $users]);
+
+            return redirect('dashboard')->with(['name' => $user->name, 'profil' => $user->profil, "tasks" => $tasks]);
         }else{
             return redirect('/login')->with(['error'=>'error']);
         }
