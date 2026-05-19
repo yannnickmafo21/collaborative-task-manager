@@ -31,6 +31,6 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Commande de démarrage : exécute les migrations PUIS lance Apache au premier plan
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate
 
 EXPOSE 80
