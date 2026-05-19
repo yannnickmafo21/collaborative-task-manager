@@ -1,6 +1,5 @@
 services:
   - type: web
     name: collaborative-task-manager
-    runtime: php
-    buildCommand: bash build.sh
-    startCommand: heroku-php-apache2 public/
+    runtime: docker
+    plan: free
