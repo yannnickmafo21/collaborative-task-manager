@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
+use App\Models\MembersTasks;
 use App\Models\Task;
 use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -27,7 +29,7 @@ class UserController extends Controller
         $uploadedFileUrl = Cloudinary::upload(
         $request->file('profil')->getRealPath(),
         ['folder' => 'profils']
-    )->getSecurePath();
+        )->getSecurePath();
 
         $user = User::create([
             'name' => $request->name,
@@ -50,17 +52,45 @@ class UserController extends Controller
 
         if($user && Hash::check($request->password, $user->password)){
             auth()->login($user);
+            
+            return redirect()->route('dashboard');
 
-            $users = User::select('name', 'profil', 'id')->get();
-
-            $tasks = $users->task;
-
-            session(["users" => $users]);
-
-            return redirect('dashboard')->with(['name' => $user->name, 'profil' => $user->profil, "tasks" => $tasks]);
         }else{
             return redirect('/login')->with(['error'=>'error']);
         }
     }
+
+    public function show_dashboard() {
+        $user = auth()->user();
+        
+        $tasks = Task::where("task_creator_id", $user->id)->with("members")->get();
+        $task_participe = MembersTasks::where("user_id", $user->id)->with("get_task_participe")->get();
+        
+        $number_tasks = count($tasks);
+        
+        $completed_task = Task::where('status', "completed")->count();
+        $hight_priorities = Task::where('priority', "hight")->count();
+        
+        $members_task = [];
+        foreach($tasks as $task){
+            foreach($task->members as $t){
+               $members_task = $t;
+            };
+        };
+        
+        $users = User::select('name', 'profil', 'id')->get();
+
+        session([
+            "users" => $users, 
+            "members_task" => $members_task, 
+            "tasks" => $tasks, 
+            'task_participe' => $task_participe,
+            "num_task" => $number_tasks, 
+            "completed_tasks" => $completed_task,
+            "hight_priority" => $hight_priorities,
+            ]);
+
+            return view('recapitulatif');
+        }
 
 }

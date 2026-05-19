@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,7 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getTasks() {
-        return $this->belongsToMany(Task::class, 'members_tasks', 'task_id', 'user_id');
+    public function tasks(): BelongsToMany {
+        return $this->belongsToMany(Task::class, 'members_tasks', 'user_id', 'task_id');
+    }
+
+    public function getComments() :HasMany 
+    {
+        return $this-> hasMany(Comments::class);
     }
 }

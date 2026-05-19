@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
@@ -15,10 +17,18 @@ class Task extends Model
         'task_description',
         'task_date',
         'priority',
+        'status',
     ];
 
-    public function getMembers()
+    public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'members_tasks', 'user_id', 'task_id');
+        return $this->belongsToMany(User::class, 'members_tasks', 'task_id', 'user_id');
+    }
+
+    
+
+    public function comment_task(): HasMany
+    {
+        return $this->hasMany(Comments::class);
     }
 }

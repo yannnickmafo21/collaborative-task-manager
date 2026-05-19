@@ -37,12 +37,14 @@ class TaskController extends Controller
             'priority' => $request->priority,
         ]);
 
-        MembersTasks::create([
-            'user_id' => auth()->user()->id,
-            'task_id' => $task->id,
-        ]);
+        foreach($request->members as $rq) {
+            MembersTasks::create([
+                'user_id' => $rq,
+                'task_id' => $task->id,
+            ]);
+        }
 
-        return redirect()->back()->with('message', $request->task_date);
+        return redirect()->route('dashboard');
         
     }
 

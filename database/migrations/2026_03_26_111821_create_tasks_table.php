@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('task_description');
             $table->date('task_date');
             $table->enum('priority', ['low', 'medium', 'high'])->default('low');
+            $table->enum('status', ['completed', 'uncompleted'])->default("uncompleted");
             $table->timestamps();
         });
     }

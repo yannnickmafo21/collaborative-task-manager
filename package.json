@@ -5,8 +5,14 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "autoprefixer": "^10.4.27",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^3.0.0",
+        "postcss": "^8.5.8",
+        "tailwindcss": "^4.2.2",
         "vite": "^8.0.1"
+    },
+    "dependencies": {
+        "express": "^4.22.1"
     }
 }
