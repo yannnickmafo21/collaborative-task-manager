@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("aa", function() {
-    return view("profil");
+Route::get("/", function() {
+    return view("index");
 })->name('test');
 
 Route::get('inscription', function () {
